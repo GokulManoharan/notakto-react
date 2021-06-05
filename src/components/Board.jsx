@@ -4,22 +4,20 @@ import { getBoardResults } from "../utils/board";
 import initialRows from "../assets/data/boardRows.json";
 import "../assets/styles/board.css";
 
-const Board = ({ numberOfBoards, playerDetails }) => {
+const Board = ({ numberOfBoards, playerDetails, i, setActivePlayer, isPlayer1Active, setPlayerDetails }) => {
     const [rows, setRows] = useState(initialRows);
-    const [isPlayer1Active, setIsPlayer1Active] = useState(true);
-    const [playerToPlay, setPlayerToPlay] = useState(playerDetails[0].name);
+    const [winner, setWinner] = useState("")
 
     useEffect(() => {
         checkBoardStatus()
-    },[rows]);
+    }, [rows]);
 
     const setValue = (rowInd, colInd) => {
-        setIsPlayer1Active(prev => !prev);
-        setPlayerToPlay(playerDetails[isPlayer1Active ? 1 : 0].name);
-        const newRows = [...rows].map((row,i) => {
-            if(rowInd === i){
+        setActivePlayer();
+        const newRows = [...rows].map((row, i) => {
+            if (rowInd === i) {
                 const newCols = row.cols.map((col, j) => {
-                    if(colInd === j){
+                    if (colInd === j) {
                         return {
                             ...col,
                             value: "X",
@@ -29,7 +27,7 @@ const Board = ({ numberOfBoards, playerDetails }) => {
                     return col
                 })
                 return {
-                    cols : newCols
+                    cols: newCols
                 }
             }
             return row
@@ -38,20 +36,32 @@ const Board = ({ numberOfBoards, playerDetails }) => {
     }
 
     const checkBoardStatus = () => {
-        getBoardResults([...rows]);
+        const result = getBoardResults([...rows]);
+        if (result) {
+            const winner = isPlayer1Active ? playerDetails[0].name : playerDetails[1].name;
+            setWinner(winner);
+            const updatedPlayerDetails = [...playerDetails].map(player => {
+                if(player.name === winner){
+                    return {
+                        ...player,
+                        won : player.won+1
+                    }
+                }
+                return player
+            })
+            setPlayerDetails(updatedPlayerDetails);
+        }
     }
 
     return (
         <div className='board-wrapper'>
-            {
-                console.log(rows)
-            }
             <h3>
-                Board 0 / {numberOfBoards}
+                Board {i + 1} / {numberOfBoards}
             </h3>
-            <h4>
-                {playerToPlay}'s turn
-            </h4>
+            <span>
+                {winner && <span>Winner - {winner}</span> } 
+            </span>
+
             <div className="board">
                 {
                     rows?.map((row, i) => {
@@ -66,6 +76,7 @@ const Board = ({ numberOfBoards, playerDetails }) => {
                                                 rowInd={i}
                                                 setValue={setValue}
                                                 value={col.value}
+                                                winner={winner}
                                             />
                                         )
                                     })

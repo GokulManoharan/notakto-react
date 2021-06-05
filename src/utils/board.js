@@ -1,4 +1,4 @@
-const lines = [
+const possibilities = [
     [0, 1, 2],
     [0, 3, 6],
     [0, 4, 8],
@@ -9,24 +9,21 @@ const lines = [
     [2, 4, 6]
 ];
 
+const types = ["straightHorizontal", "straightVertical", "diagonalTopLeftToBottomRight", "diagonalTopRightToBottomLeft"]
+
 export const getBoardResults = rows => {
     let isBoardDone = false;
-    let boardWinner = "";
-
     let allCols = [];
 
     rows.forEach(row => allCols.push(row.cols));
     allCols = allCols.flat();
+    for (let i = 0; i < possibilities.length; i++) {
+        const [a, b, c] = possibilities[i];
+        if (allCols[a].value && allCols[a].value === allCols[b].value && allCols[b].value === allCols[c].value) {
+            isBoardDone = true;
 
-    for (let i = 0; i < lines.length; i++) {
-        const [a, b, c] = lines[i];
-        if (allCols[a] && allCols[a] === allCols[b] && allCols[b] === allCols[c]) {
-            return allCols[a];
         }
     }
     
-    return {
-        isBoardDone,
-        boardWinner
-    }
+    return isBoardDone
 }

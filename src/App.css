@@ -1,7 +1,21 @@
 .App {
   text-align: center;
   font-size: 18px;
+  display: flex;
   height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar{
+  width: 20%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.content{
+  width: 80%;
+  overflow: auto;
 }
 
 input[type=number], input[type=text] {

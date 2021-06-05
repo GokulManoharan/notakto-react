@@ -1,16 +1,17 @@
 .board{
-    width: 18rem;
-    height: 18rem;
+    width: 12rem;
+    height: 12rem;
 }
 .board-wrapper{
     display: flex;   
     flex-direction: column;
     justify-content: center;
     align-items: center; 
+    width: 25%;
 }
 
 .board-row{
-    width: 18rem;
-    height: 6rem;
+    width: 12rem;
+    height: 4rem;
     display: flex;
 }
