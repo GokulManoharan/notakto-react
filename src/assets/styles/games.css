@@ -1,0 +1,15 @@
+.player-names-container{
+    display: flex;
+    justify-content: space-around;
+}
+
+.player-detail{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+    padding: 2rem;
+}
+
+.player-detail span:first-child{
+    margin-bottom: 1rem;
+}

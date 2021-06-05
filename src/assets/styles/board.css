@@ -1,0 +1,16 @@
+.board{
+    width: 18rem;
+    height: 18rem;
+}
+.board-wrapper{
+    display: flex;   
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+
+.board-row{
+    width: 18rem;
+    height: 6rem;
+    display: flex;
+}
