@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import initialPlayerDetails from "./assets/data/playerDetails.json";
 import Game from './components/Game';
 import SideBar from './components/SideBar';
+import {capitalize} from 'lodash';
 import './App.css';
 
 const App = _ => {
-
   // Initializing state values
   const [numberOfBoards, setNumberOfBoards] = useState(0);
   const [value, setValue] = useState("");
@@ -13,6 +13,13 @@ const App = _ => {
   const [player2, setPlayer2] = useState("");
   const [playerDetails, setPlayerDetails] = useState(initialPlayerDetails);
   const [started, setStarted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (started && loading) {
+      setLoading(false);
+    }
+  }, [started, loading])
 
   // Event handlers
   const handleOnChange = e => {
@@ -22,74 +29,91 @@ const App = _ => {
       setValue("")
   };
 
-  const handlePlayer1Change = e => setPlayer1(e.target.value);
-  const handlePlayer2Change = e => setPlayer2(e.target.value);
+  const handlePlayer1Change = e => {
+    setPlayer1(capitalize(e.target.value))
+  } 
+  const handlePlayer2Change = e => {
+    setPlayer2(capitalize(e.target.value))
+  } 
 
   const handleGo = _ => setNumberOfBoards(value);
-  const handleSetPlayerNames = () => {
-    if (player1 && player2) {
+  const handleSetPlayerNames = e => {
+    e.preventDefault();
+    handleGo();
+    if (player1 && player2 && value) {
       let details = [...playerDetails].map((detail, ind) => ({
         ...detail,
         name: ind === 0 ? player1 : player2
       }));
       setPlayerDetails(details);
-      setStarted(true);
+      setLoading(true);
+      setTimeout(() => {
+        setStarted(true);
+      }, 2000)
     }
+  }
+
+  const restartGame = () => {
+    setNumberOfBoards(0);
+    setValue("");
+    setPlayer1("");
+    setPlayer2("");
+    setPlayerDetails(initialPlayerDetails);
+    setStarted(false);
   }
 
   return (
     <div className="App">
-      <div className="sidebar">
-          <SideBar playerDetails={playerDetails} />
+      <div className={started ? "sidebar" : ""}>
+        {started && <SideBar playerDetails={playerDetails} />}
       </div>
-      <div className="content">
-        <h2>Notakto - React</h2>
-
-        {/* Get the number of boards from the players */}
+      <div className={started ? "content" : "content-initial"}>
         {
-          !numberOfBoards && (
-            <>
-              <h5>Please enter the number of boards to be played(1-8)</h5>
-              <input value={value} type="number" min={1} max={8} onChange={handleOnChange} placeholder="Number of boards" />
-              {
-
-              }
-              <input type="button" value="Go" onClick={handleGo} />
-            </>
-          )
+          !started &&
+          <h1 style={{
+            backgroundColor: "#283046",
+            padding: "1rem",
+            margin: 0,
+            color: "#d0d2d6"
+          }}>Notakto - React</h1>
         }
 
-        {/* Get the player names  */}
+        {/* Get the number of boards and players' names */}
         {
-          (numberOfBoards > 0 && !started) && (
-            <>
+          !started && (
+            <form onSubmit={handleSetPlayerNames}>
+              <h2>Welcome to the game!</h2>
+              <span>Enter the number of boards to be played(1-8)</span>
+              <br />
+              <input required value={value} type="number" min={1} max={8} onChange={handleOnChange} placeholder="Number of boards" />
               <>
-                <h5>Please enter the player names to proceed</h5>
-                <input value={player1} type="text" onChange={handlePlayer1Change} placeholder="Player1 name" />
-                <input value={player2} type="text" onChange={handlePlayer2Change} placeholder="Player2 name" />
-                <input type="button" value="Start" onClick={handleSetPlayerNames} />
+                <div>
+                  <span>Enter the player names to proceed</span>
+                  <div>
+                    <input required value={player1} type="text" onChange={handlePlayer1Change} placeholder="Player1 name" />
+                    <input required value={player2} type="text" onChange={handlePlayer2Change} placeholder="Player2 name" />
+                    <div>
+                      <input type="submit" value="Play" />
+                    </div>
+                  </div>
+                </div>
               </>
-              <div>
-                <button onClick={() => {
-                  setNumberOfBoards(0);
-                  setValue(0);
-                  setStarted(false);
-                }}>
-                  Change number of boards
-        </button>
-              </div>
-            </>
+            </form>
           )
         }
+        
         {/* Start the games if number of boards and player names are */}
-        {started && <Game 
-        playerDetails={playerDetails} 
-        numberOfBoards={numberOfBoards}
-        setPlayerDetails={setPlayerDetails} 
-        />}
+        <Game
+          playerDetails={playerDetails}
+          numberOfBoards={numberOfBoards}
+          setPlayerDetails={setPlayerDetails}
+          started={started}
+          loading={loading}
+          restartGame={restartGame}
+        />
 
       </div>
-    </div>
+    </div >
   );
 }
 

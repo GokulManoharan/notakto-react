@@ -1,6 +1,7 @@
 .board{
     width: 12rem;
     height: 12rem;
+    margin-top: 2rem;
 }
 .board-wrapper{
     display: flex;   
@@ -8,10 +9,99 @@
     justify-content: center;
     align-items: center; 
     width: 25%;
+    margin-top: 2rem;
 }
 
 .board-row{
     width: 12rem;
     height: 4rem;
     display: flex;
+    position:relative;
 }
+
+.diagonal-top-left-to-bottom-right{
+    width: 62%;
+    background: linear-gradient(to top right, #fff calc(50% - 8px), red, #fff calc(50% + 1px) );
+}
+.diagonal-top-right-to-bottom-left{
+    width: 62%;
+    background: linear-gradient(to top left, #fff calc(50% - 8px), red, #fff calc(50% + 1px) );
+}
+
+.straight-horizontal{
+    height: 6px;
+    position: absolute;
+    width: 34%;
+    background: #FF0000;
+    background: linear-gradient(to bottom, #ff0000 -1%,28%,#ff0000 68%);
+    display: inline-block;
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+}
+
+.winner{
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+    background-color: #ddd;
+    color: black;
+    text-transform: capitalize;
+}
+
+.winner-decided{
+    background-color: #6495ED;
+    color: #fff;
+}
+@media only screen and (min-width: 280px) and (max-width:320px) { 
+    .diagonal-top-left-to-bottom-right,
+    .diagonal-top-right-to-bottom-left{
+        width: 67%;
+    }
+    .board-wrapper{
+        width: 100%;
+      }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 425px) { 
+    .board-wrapper{
+      width: 100%;
+    }
+    
+    .diagonal-top-left-to-bottom-right,
+    .diagonal-top-right-to-bottom-left{
+        width: 54%;
+    }
+  }
+  @media only screen and (min-width: 425px) and (max-width: 768px) { 
+    .board-wrapper{
+        width: 50%;
+      }
+      .diagonal-top-left-to-bottom-right,
+      .diagonal-top-right-to-bottom-left{
+        width: 92%;
+    }
+  }
+  @media only screen and (min-width: 768px) and (max-width: 850px) { 
+    .board-wrapper{
+        width: 50%;
+      }
+      .diagonal-top-left-to-bottom-right,
+      .diagonal-top-right-to-bottom-left{
+        width: 52%;
+    }
+  }
+  @media only screen and (min-width: 850px) and (max-width: 1024px) { 
+    .board-wrapper{
+        width: 33.33%;
+      }
+      .diagonal-top-left-to-bottom-right,
+      .diagonal-top-right-to-bottom-left{
+        width: 58%;
+    }
+  }

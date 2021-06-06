@@ -4,9 +4,19 @@ import { getBoardResults } from "../utils/board";
 import initialRows from "../assets/data/boardRows.json";
 import "../assets/styles/board.css";
 
-const Board = ({ numberOfBoards, playerDetails, i, setActivePlayer, isPlayer1Active, setPlayerDetails }) => {
+const Board = ({ numberOfBoards, 
+    playerDetails, 
+    i, 
+    setActivePlayer, 
+    isPlayer1Active, 
+    setPlayerDetails, 
+    setNumOfBoardsDone,
+    numOfBoardsDone
+}) => {
     const [rows, setRows] = useState(initialRows);
-    const [winner, setWinner] = useState("")
+    const [winner, setWinner] = useState("");
+    const [winnerClass, setWinnerClass] = useState("");
+    const [horizontalStrikeRowIndex, setHorizontalStrikeRowIndex] = useState("");
 
     useEffect(() => {
         checkBoardStatus()
@@ -36,52 +46,63 @@ const Board = ({ numberOfBoards, playerDetails, i, setActivePlayer, isPlayer1Act
     }
 
     const checkBoardStatus = () => {
-        const result = getBoardResults([...rows]);
-        if (result) {
+        const { className, isBoardDone, horizontalStraightRowIndex } = getBoardResults([...rows]);
+        if (isBoardDone) {
             const winner = isPlayer1Active ? playerDetails[0].name : playerDetails[1].name;
             setWinner(winner);
             const updatedPlayerDetails = [...playerDetails].map(player => {
-                if(player.name === winner){
+                if (player.name === winner) {
                     return {
                         ...player,
-                        won : player.won+1
+                        won: player.won + 1
                     }
                 }
                 return player
             })
             setPlayerDetails(updatedPlayerDetails);
+            setWinnerClass(className);
+            setHorizontalStrikeRowIndex(horizontalStraightRowIndex);
+            setNumOfBoardsDone(numOfBoardsDone+1);
         }
     }
+    
 
     return (
-        <div className='board-wrapper'>
+        <div className="board-wrapper">
             <h3>
-                Board {i + 1} / {numberOfBoards}
+                Board {i + 1}/{numberOfBoards}
             </h3>
-            <span>
-                {winner && <span>Winner - {winner}</span> } 
-            </span>
+            <span className={winner ? "winner winner-decided" : "winner"}>Winner - {winner || '?'}</span>
 
-            <div className="board">
+            <div
+                className={`board ${["diagonal-top-left-to-bottom-right", "diagonal-top-right-to-bottom-left"].includes(winnerClass)
+                    ? winnerClass : ""}`}
+            >
                 {
                     rows?.map((row, i) => {
                         return (
-                            <div className="board-row">
-                                {
-                                    row?.cols?.map((col, ind) => {
-                                        return (
-                                            <Square
-                                                ind={ind}
-                                                col={col}
-                                                rowInd={i}
-                                                setValue={setValue}
-                                                value={col.value}
-                                                winner={winner}
-                                            />
-                                        )
-                                    })
-                                }
-                            </div>
+                            <>
+                                <div className="board-row">
+                                    <div>
+
+                                    </div>
+                                    {
+                                        row?.cols?.map((col, ind) => {
+                                            return (
+                                                <Square
+                                                    ind={ind}
+                                                    col={col}
+                                                    rowInd={i}
+                                                    setValue={setValue}
+                                                    value={col.value}
+                                                    winner={winner}
+                                                    isStraightHorizontal={i === horizontalStrikeRowIndex}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </>
                         )
                     })
                 }

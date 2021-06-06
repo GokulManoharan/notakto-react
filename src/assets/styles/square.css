@@ -9,22 +9,14 @@
     user-select: none;
     font-size: 4rem;
     font-weight: bolder;
+    color: #283046;
 }
 
 .center-col{
-    border-left: 5px solid #000;
-    border-right: 5px solid #000;
+    border-left: 5px solid #283046;
+    border-right: 5px solid #283046;
 }
 
 .col-border-bottom{    
-    border-bottom: 5px solid #000;
+    border-bottom: 5px solid #283046;
 }
-
-/* .board-col:after{
-    content:"";
-    position:absolute;
-    border-top:1px solid black;
-      width:90px;
-      transform: rotate(45deg);
-      transform-origin: 50%;
-    } */

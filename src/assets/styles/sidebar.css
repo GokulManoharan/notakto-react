@@ -1,0 +1,17 @@
+.player-names-container{
+    padding: 3rem;
+}
+
+.player-detail{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #d0d2d6;
+    padding: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+.player-detail span:first-child{
+    margin-bottom: 1rem;
+}

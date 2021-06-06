@@ -10,27 +10,82 @@
   width: 20%;
   overflow: hidden;
   display: flex;
+  justify-content: center;
   align-items: center;
+  background-color: #283046;
+  color: #d0d2d6 !important;
+  text-transform: capitalize;
 }
 
 .content{
   width: 80%;
   overflow: auto;
+  color: #283046 !important;
+  padding-bottom: 5rem;
+}
+
+.content-initial{
+  width: 100%;
+  color: #283046 !important;
 }
 
 input[type=number], input[type=text] {
   padding: 12px 10px;
-  margin: 8px 0;
+  margin: 10px;
   box-sizing: border-box;
   width: 200px;
   font-size: 100%;
 }
 
-input[type=button] {
+input[type=submit] {
   padding: 12px 10px;
   margin: 8px 0;
   box-sizing: border-box;
   width: 100px;
   font-size: 100%;
   cursor: pointer;
+  background: #283046;
+  color: #d0d2d6;
+  letter-spacing: 2px;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 1rem;
+}
+
+@media only screen and (min-width: 280px) and (max-width: 1023px) {
+
+  .App{
+    flex-direction: column;
+  }
+  
+  .sidebar{
+    width: 100% !important;
+    display: table;
+  }
+  .sidebar h1, .sidebar h2{
+    font-size: 1.2rem;
+  }
+
+  .player-details-wrapper {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1rem !important;
+  }
+
+  .player-detail{
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .content{
+    width: 100% !important;
+  }
+  
+  .player-details-wrapper{
+    display:flex;
+  }
+
+  .player-names-container{
+    padding: 0;
+  }
 }

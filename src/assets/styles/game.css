@@ -1,22 +1,44 @@
-.player-names-container{
-    padding: 2rem;
-}
-
-.player-detail{
-    display: flex;
-    flex-direction: column;
-    border: 1px solid red;
-    padding: 2rem;
-    margin-bottom: 1rem;
-}
-
-.player-detail span:first-child{
-    margin-bottom: 1rem;
-}
-
 .boards-wrapper{
     display: flex;
     justify-content: space-evenly;
     width: 100%;
     flex-wrap: wrap;
 }
+
+.game-winner{
+    border: none;
+    border-radius: 16px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 2rem 2px;
+    cursor: pointer;
+    background-color: #4BB543;
+    color: #283046;
+    width: 90%;
+}
+
+
+  .react-responsive-modal-modal{
+      background: #283046 !important;
+      color: #b2dbbf !important;
+      font-size: 1.5rem;
+      padding: 4rem 2rem !important;
+  }
+
+  .react-responsive-modal-closeButton{
+      display: none !important;
+  }
+
+  .play-again {
+    padding: 3px 10px;
+    margin: 8px 0 0 16px;
+    font-size: 100%;
+    cursor: pointer;
+    color: #283046;
+    background: #d0d2d6;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 1rem;
+  }
