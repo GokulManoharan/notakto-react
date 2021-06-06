@@ -14,7 +14,8 @@ const Game = ({ playerDetails,
     setPlayerDetails,
     started,
     loading,
-    restartGame
+    restartGame,
+    getActivePlayer
 }) => {
 
     const [isPlayer1Active, setIsPlayer1Active] = useState(true);
@@ -28,6 +29,10 @@ const Game = ({ playerDetails,
     useEffect(() => {
         setPlayerToPlay(playerDetails[0].name);
     }, [started])
+
+    useEffect(() => {
+        getActivePlayer(playerToPlay)
+    }, [playerToPlay])
 
     useEffect(() => {
         if (+numOfBoardsDone === +numberOfBoards && +numberOfBoards !== 0) {
@@ -92,14 +97,7 @@ const Game = ({ playerDetails,
                 started &&
                 <Pulse>
                     <>
-                        {!isTheGameDone &&
-                            (
-                                <>
-                                    <h2 id="lets-play">Let's PLAY!</h2>
-                                    <span className="winner">
-                                        {playerToPlay}'s turn
-                                    </span>
-                                </>)
+                        {!isTheGameDone && <h2 id="lets-play">Let's PLAY!</h2>
                         }
                     </>
                     <Modal

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from 'react-responsive-modal';
 import "../assets/styles/sidebar.css";
 
-const SideBar = ({ playerDetails, restartGame }) => {
+const SideBar = ({ playerDetails, restartGame, activePlayer }) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -25,20 +25,25 @@ const SideBar = ({ playerDetails, restartGame }) => {
                 margin: 0,
                 color: "#d0d2d6"
             }}>Notakto - React</h1>
+            <span className="active-player-span">
+                {activePlayer}'s turn
+            </span>
             <div className="player-names-container">
-                <h2>Score Board</h2>
+                <h2>Results</h2>
                 <div className="player-details-wrapper">
                     {
-                        playerDetails.map((player) => {
+                        playerDetails.map((player, i) => {
                             return (
-                                <div className="player-detail">
-                                    <span style={{fontSize: "1.5rem"}}>
-                                        {player.name}
-                                    </span>
-                                    <span>
-                                        Boards won: <span style={{fontSize: "1.5rem"}}>{player.won}</span>
-                                    </span>
-                                </div>
+                                <React.Fragment key={player.name + i}>
+                                    <div className="player-detail">
+                                        <span style={{ fontSize: "1.5rem" }}>
+                                            {player.name}
+                                        </span>
+                                        <span>
+                                            Boards won: <span style={{ fontSize: "1.5rem" }}>{player.won}</span>
+                                        </span>
+                                    </div>
+                                </React.Fragment>
                             )
                         })
                     }
@@ -66,7 +71,7 @@ const SideBar = ({ playerDetails, restartGame }) => {
                 }}>
                     <div>
                         <input type="button" value="Yes" className="play-again" onClick={restartGame} />
-                        <input type="button" value="No" className="play-again" onClick={()=>setOpen(false)} />
+                        <input type="button" value="No" className="play-again" onClick={() => setOpen(false)} />
                     </div>
                 </div>
             </Modal>

@@ -11,10 +11,10 @@
   overflow: hidden;
   display: flex;
   justify-content: center;
-  align-items: center;
-  background-color: #283046;
+  background-color: #161d31;
   color: #d0d2d6 !important;
   text-transform: capitalize;
+  padding-top: 5rem;
 }
 
 .content{
@@ -61,6 +61,7 @@ input[type=submit] {
   .sidebar{
     width: 100% !important;
     display: table;
+    padding-top: 0
   }
   .sidebar h1, .sidebar h2{
     font-size: 1.2rem;

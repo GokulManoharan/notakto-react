@@ -93,7 +93,7 @@ const Board = ({ numberOfBoards,
                 {
                     rows?.map((row, i) => {
                         return (
-                            <>
+                            <React.Fragment key={i}>
                                 <div className="board-row">
                                     {
                                         row?.cols?.map((col, ind) => {
@@ -117,7 +117,7 @@ const Board = ({ numberOfBoards,
                                         })
                                     }
                                 </div>
-                            </>
+                            </React.Fragment>
                         )
                     })
                 }

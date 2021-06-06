@@ -12,6 +12,27 @@
     font-weight: 300;
 }
 
+.active-player-span{
+    border: none;
+    padding: 10px 1px;
+    text-align: center;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: #6495ED;
+    color: #d0d2d6;
+    text-transform: capitalize;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .player-detail span:first-child{
     margin-bottom: 1rem;
 }
+
+@media only screen and (min-width: 280px) and (max-width: 1023px) {
+  
+    .player-names-container{
+      padding: 0;
+    }
+  }

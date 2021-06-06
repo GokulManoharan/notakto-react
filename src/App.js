@@ -14,6 +14,7 @@ const App = _ => {
   const [playerDetails, setPlayerDetails] = useState(initialPlayerDetails);
   const [started, setStarted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [activePlayer, setActivePlayer] = useState(false);
 
   useEffect(() => {
     if (started && loading) {
@@ -65,7 +66,7 @@ const App = _ => {
   return (
     <div className="App">
       <div className={started ? "sidebar" : ""}>
-        {started && <SideBar playerDetails={playerDetails} restartGame={restartGame} />}
+        {started && <SideBar playerDetails={playerDetails} restartGame={restartGame} activePlayer={activePlayer} />}
       </div>
       <div className={started ? "content" : "content-initial"}>
         {
@@ -110,6 +111,7 @@ const App = _ => {
           started={started}
           loading={loading}
           restartGame={restartGame}
+          getActivePlayer={setActivePlayer}
         />
 
       </div>

@@ -66,10 +66,6 @@
     color: #fff;
 }
 @media only screen and (min-width: 280px) and (max-width:320px) { 
-    /* .diagonal-top-left-to-bottom-right,
-    .diagonal-top-right-to-bottom-left{
-        width: 67%;
-    } */
     .board-wrapper{
         width: 100%;
       }
@@ -79,36 +75,19 @@
     .board-wrapper{
       width: 100%;
     }
-    
-    /* .diagonal-top-left-to-bottom-right,
-    .diagonal-top-right-to-bottom-left{
-        width: 54%;
-    } */
   }
   @media only screen and (min-width: 425px) and (max-width: 768px) { 
     .board-wrapper{
         width: 50%;
       }
-      /* .diagonal-top-left-to-bottom-right,
-      .diagonal-top-right-to-bottom-left{
-        width: 68%;
-    } */
   }
   @media only screen and (min-width: 768px) and (max-width: 850px) { 
     .board-wrapper{
         width: 50%;
       }
-      /* .diagonal-top-left-to-bottom-right,
-      .diagonal-top-right-to-bottom-left{
-        width: 52%;
-    } */
   }
   @media only screen and (min-width: 850px) and (max-width: 1024px) { 
     .board-wrapper{
         width: 33.33%;
       }
-      /* .diagonal-top-left-to-bottom-right,
-      .diagonal-top-right-to-bottom-left{
-        width: 58%;
-    } */
   }
