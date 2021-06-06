@@ -7,7 +7,9 @@ const Square = ({ ind,
     value,
     winner,
     isStraightHorizontal,
-    isStraightVertical
+    isStraightVertical,
+    isLeftDiagonalStrike,
+    isRightDiagonalStrike
 }) => {
 
     const squareClick = _ => {
@@ -24,7 +26,8 @@ const Square = ({ ind,
             }
             onClick={squareClick}
         >
-            <div className={`${(isStraightHorizontal) ? "straight-horizontal" : ""} ${isStraightVertical ? "straight-vertical" : ""}`}>
+            <div 
+            className={`strike-out${(isStraightHorizontal) ? " straight-horizontal" : ""} ${isStraightVertical ? " straight-vertical" : ""} ${isLeftDiagonalStrike ? " diagonal-top-left-to-bottom-right": ""} ${isRightDiagonalStrike ? " diagonal-top-right-to-bottom-left" : ""} `}>
 
             </div>
             {value}

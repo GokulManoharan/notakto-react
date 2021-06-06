@@ -4,12 +4,12 @@ import { getBoardResults } from "../utils/board";
 import initialRows from "../assets/data/boardRows.json";
 import "../assets/styles/board.css";
 
-const Board = ({ numberOfBoards, 
-    playerDetails, 
-    i, 
-    setActivePlayer, 
-    isPlayer1Active, 
-    setPlayerDetails, 
+const Board = ({ numberOfBoards,
+    playerDetails,
+    i,
+    setActivePlayer,
+    isPlayer1Active,
+    setPlayerDetails,
     setNumOfBoardsDone,
     numOfBoardsDone,
     isReset,
@@ -26,7 +26,7 @@ const Board = ({ numberOfBoards,
     }, [rows]);
 
     useEffect(() => {
-        if(isReset){
+        if (isReset) {
             setRows([...initialRows]);
             setWinnerClass("");
             setWinner("");
@@ -77,10 +77,10 @@ const Board = ({ numberOfBoards,
             setWinnerClass(className);
             setHorizontalStrikeRowIndex(horizontalStraightRowIndex);
             setVerticalStrikeColIndex(verticalStraightColIndex)
-            setNumOfBoardsDone(numOfBoardsDone+1);
+            setNumOfBoardsDone(numOfBoardsDone + 1);
         }
     }
-    
+
 
     return (
         <div className="board-wrapper">
@@ -89,32 +89,30 @@ const Board = ({ numberOfBoards,
             </h3>
             <span className={winner ? "winner winner-decided" : "winner"}>Winner - {winner || '?'}</span>
 
-            <div
-                className={`board ${["diagonal-top-left-to-bottom-right", "diagonal-top-right-to-bottom-left"].includes(winnerClass)
-                    ? winnerClass : ""}`}
-            >
+            <div className="board" >
                 {
                     rows?.map((row, i) => {
                         return (
                             <>
                                 <div className="board-row">
-                                    <div>
-
-                                    </div>
                                     {
                                         row?.cols?.map((col, ind) => {
                                             return (
-                                                <Square
-                                                    ind={ind}
-                                                    col={col}
-                                                    rowInd={i}
-                                                    setValue={setValue}
-                                                    value={col.value}
-                                                    winner={winner}
-                                                    isStraightHorizontal={i === horizontalStrikeRowIndex}
-                                                    isStraightVertical={ ind === verticalStrikeColIndex}
-                                                    winnerClass={winnerClass}
-                                                />
+                                                <React.Fragment key={`${i+ind}`}>
+                                                    <Square
+                                                        ind={ind}
+                                                        col={col}
+                                                        rowInd={i}
+                                                        setValue={setValue}
+                                                        value={col.value}
+                                                        winner={winner}
+                                                        isStraightHorizontal={i === horizontalStrikeRowIndex}
+                                                        isStraightVertical={ind === verticalStrikeColIndex}
+                                                        isLeftDiagonalStrike={winnerClass === "diagonal-top-left-to-bottom-right" && ind === i}
+                                                        isRightDiagonalStrike={winnerClass === "diagonal-top-right-to-bottom-left" && ind + i === 2}
+                                                        winnerClass={winnerClass}
+                                                    />
+                                                </React.Fragment>
                                             )
                                         })
                                     }
