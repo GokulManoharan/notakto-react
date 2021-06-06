@@ -1,7 +1,14 @@
 import React from 'react';
 import "../assets/styles/square.css";
 
-const Square = ({ ind, rowInd, setValue, value, winner, isStraightHorizontal }) => {
+const Square = ({ ind,
+    rowInd,
+    setValue,
+    value,
+    winner,
+    isStraightHorizontal,
+    isStraightVertical
+}) => {
 
     const squareClick = _ => {
         if (!value && !winner) {
@@ -17,7 +24,7 @@ const Square = ({ ind, rowInd, setValue, value, winner, isStraightHorizontal }) 
             }
             onClick={squareClick}
         >
-            <div className={`${isStraightHorizontal ? "straight-horizontal" : ""}`}>
+            <div className={`${(isStraightHorizontal) ? "straight-horizontal" : ""} ${isStraightVertical ? "straight-vertical" : ""}`}>
 
             </div>
             {value}

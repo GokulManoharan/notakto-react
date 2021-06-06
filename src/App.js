@@ -65,7 +65,7 @@ const App = _ => {
   return (
     <div className="App">
       <div className={started ? "sidebar" : ""}>
-        {started && <SideBar playerDetails={playerDetails} />}
+        {started && <SideBar playerDetails={playerDetails} restartGame={restartGame} />}
       </div>
       <div className={started ? "content" : "content-initial"}>
         {

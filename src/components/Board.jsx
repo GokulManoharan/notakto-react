@@ -11,16 +11,30 @@ const Board = ({ numberOfBoards,
     isPlayer1Active, 
     setPlayerDetails, 
     setNumOfBoardsDone,
-    numOfBoardsDone
+    numOfBoardsDone,
+    isReset,
+    setIsReset
 }) => {
-    const [rows, setRows] = useState(initialRows);
+    const [rows, setRows] = useState([...initialRows]);
     const [winner, setWinner] = useState("");
     const [winnerClass, setWinnerClass] = useState("");
     const [horizontalStrikeRowIndex, setHorizontalStrikeRowIndex] = useState("");
+    const [verticalStrikeColIndex, setVerticalStrikeColIndex] = useState("");
 
     useEffect(() => {
         checkBoardStatus()
     }, [rows]);
+
+    useEffect(() => {
+        if(isReset){
+            setRows([...initialRows]);
+            setWinnerClass("");
+            setWinner("");
+            setHorizontalStrikeRowIndex("");
+            setVerticalStrikeColIndex("")
+            setIsReset(false)
+        }
+    }, [isReset]);
 
     const setValue = (rowInd, colInd) => {
         setActivePlayer();
@@ -46,7 +60,7 @@ const Board = ({ numberOfBoards,
     }
 
     const checkBoardStatus = () => {
-        const { className, isBoardDone, horizontalStraightRowIndex } = getBoardResults([...rows]);
+        const { className, isBoardDone, horizontalStraightRowIndex, verticalStraightColIndex } = getBoardResults([...rows]);
         if (isBoardDone) {
             const winner = isPlayer1Active ? playerDetails[0].name : playerDetails[1].name;
             setWinner(winner);
@@ -62,6 +76,7 @@ const Board = ({ numberOfBoards,
             setPlayerDetails(updatedPlayerDetails);
             setWinnerClass(className);
             setHorizontalStrikeRowIndex(horizontalStraightRowIndex);
+            setVerticalStrikeColIndex(verticalStraightColIndex)
             setNumOfBoardsDone(numOfBoardsDone+1);
         }
     }
@@ -97,6 +112,8 @@ const Board = ({ numberOfBoards,
                                                     value={col.value}
                                                     winner={winner}
                                                     isStraightHorizontal={i === horizontalStrikeRowIndex}
+                                                    isStraightVertical={ ind === verticalStrikeColIndex}
+                                                    winnerClass={winnerClass}
                                                 />
                                             )
                                         })

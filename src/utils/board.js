@@ -28,6 +28,7 @@ export const getBoardResults = rows => {
     let isBoardDone = false;
     let className = "";
     let horizontalStraightRowIndex = "";
+    let verticalStraightColIndex = "";
     let allCols = [];
 
     rows.forEach(row => allCols.push(row.cols));
@@ -40,13 +41,17 @@ export const getBoardResults = rows => {
             if(className === "straight-horizontal"){
                 horizontalStraightRowIndex = (a===0) ? 0 : (a===3) ? 1 : (a===6) ? 2 : "";
             }
+            if(className === "straight-vertical"){
+                verticalStraightColIndex = a;
+            }
         }
     }
     
     return {
         isBoardDone, 
         className,
-        horizontalStraightRowIndex
+        horizontalStraightRowIndex,
+        verticalStraightColIndex
     }
 }
 

@@ -21,10 +21,9 @@ const Game = ({ playerDetails,
     const [playerToPlay, setPlayerToPlay] = useState("");
     const [numOfBoardsDone, setNumOfBoardsDone] = useState(0);
     const [isTheGameDone, setIsTheGameDone] = useState(false);
-    const [gameWinner, setGameWinner] = useState("");
     const [open, setOpen] = useState(false);
-    const [isGameDrawn, setIsGameDrawn] = useState(false);
     const [modalMessage, setModalMessage] = useState("");
+    const [isReset, setIsReset] = useState(false);
 
     useEffect(() => {
         setPlayerToPlay(playerDetails[0].name);
@@ -46,13 +45,30 @@ const Game = ({ playerDetails,
     const findTheWinner = () => {
         const result = _.orderBy(playerDetails, ['won'], ['desc']);
         if (result[0].won === result[1].won) {
-            setIsGameDrawn(true);
-            setModalMessage(`This game is a draw. Wanna play again?`)
+            setModalMessage(`This game is drawn. Well played both!`)
         }
         else {
-            setModalMessage(`The winner of the game is ${result[0].name}. Congratulations!`)
-            setGameWinner(result[0]);
+            setModalMessage(`The winner of this game is ${result[0].name}. Congratulations!`)
         }
+    }
+
+    const resetScoreBoard = details => {
+        const updatedPlayerDetails = [...playerDetails].map(player => ({
+            ...player,
+            won: 0
+        }))
+        setPlayerDetails(updatedPlayerDetails);
+    }
+
+    const resetThisGame = () => {
+        setIsPlayer1Active(true);
+        setPlayerToPlay(playerDetails[0].name);
+        setNumOfBoardsDone(0);
+        setIsTheGameDone(false);
+        setModalMessage("");
+        setOpen(false);
+        setIsReset(true);
+        resetScoreBoard()
     }
 
     if (loading) {
@@ -111,11 +127,12 @@ const Game = ({ playerDetails,
                                             marginBottom: "-2rem"
                                         }}>
                                             <div>
-                                                <input type="button" value="Go back" className="play-again" onClick={() => {
+                                                <input type="button" value="Go to home" className="play-again" onClick={() => {
                                                     restartGame()
                                                     setOpen(false)
-                                                    setNumOfBoardsDone(0)
-                                                    setIsTheGameDone(false)
+                                                }} />
+                                                <input type="button" value="Play again" className="play-again" onClick={() => {
+                                                    resetThisGame()
                                                 }} />
                                             </div>
                                         </div>
@@ -134,6 +151,8 @@ const Game = ({ playerDetails,
                                 setPlayerDetails={setPlayerDetails}
                                 setNumOfBoardsDone={setNumOfBoardsDone}
                                 numOfBoardsDone={numOfBoardsDone}
+                                isReset={isReset}
+                                setIsReset={setIsReset}
                                 key={i}
                                 i={i}
                             />)
