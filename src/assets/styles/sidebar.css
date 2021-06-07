@@ -19,7 +19,8 @@
     margin: 4px 2px;
     cursor: pointer;
     background-color: #6495ED;
-    color: #d0d2d6;
+    font-size: 1.25rem;
+    color: #fff;
     text-transform: capitalize;
     width: 100%;
     display: flex;
