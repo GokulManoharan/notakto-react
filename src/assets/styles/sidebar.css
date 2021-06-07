@@ -21,7 +21,7 @@
     background-color: #6495ED;
     font-size: 1.25rem;
     color: #fff;
-    text-transform: capitalize;
+    text-transform: none;
     width: 100%;
     display: flex;
     justify-content: center;
